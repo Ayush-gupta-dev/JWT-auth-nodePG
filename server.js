@@ -8,10 +8,11 @@ const Role = db.role;
 app.use(cors(corsOption))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+
 //routes
 require("./routes/user.routes")(app)
 require("./routes/auth.routes")(app)
-
+//--
 
 db.sequelize.sync({force:true})
 .then(()=>{
