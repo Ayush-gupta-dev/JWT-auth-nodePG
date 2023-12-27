@@ -1,0 +1,43 @@
+name: Jwt tests
+
+on: 
+    pull_request: 
+        branches: 
+            - main
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+    
+        strategy:
+            matrix:
+                node-version: [18.19.0]
+        env:
+            MODE: "dev"
+        steps:
+            - uses: actions/checkout@v3
+            - name: Uses Node.js version ${{matrix.node-version}}
+              uses: actions/setup-node@v3
+              with:
+                node-versions: ${{matrix.node-versions}} 
+                cache: "npm"
+            - run: npm i
+            - run: npm run build
+
+    test:
+        runs-on: ubuntu-latest
+    
+        strategy:
+            matrix:
+                node-version: [18.19.0]
+        env:
+            MODE: "dev"
+        steps:
+            - uses: actions/checkout@v3
+            - name: Uses Node.js version ${{matrix.node-version}}
+              uses: actions/setup-node@v3
+              with:
+                node-versions: ${{matrix.node-versions}} 
+                cache: "npm"
+            - run: npm i
+            - run: npm run test
